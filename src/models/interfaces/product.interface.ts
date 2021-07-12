@@ -1,6 +1,5 @@
 import { ObjectID } from "typeorm";
 import { CategoryEnum } from "../enum/product.enum";
-
 export interface IProduct {
     id: ObjectID;
     name: string;
