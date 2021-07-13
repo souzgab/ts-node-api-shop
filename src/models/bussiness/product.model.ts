@@ -8,28 +8,28 @@ import { ObjectID } from 'typeorm';
 export class Product implements IProduct {
         
     @ObjectIdColumn()
-    id!: ObjectID;
+    id: ObjectID;
 
     @Column({ type: 'varchar', nullable: false })
-    name!: string;
+    name: string;
 
     @Column({ type: 'enum', nullable: false, enum: CategoryEnum, default: CategoryEnum.OUTROS })
-    category!: CategoryEnum;
+    category: CategoryEnum;
     
     @Column({ type: 'bigint', nullable: false })
-    value!: number;
+    value: number;
 
     @Column({ type: 'varchar', nullable: false })
-    imageUrl!: string;
+    imageUrl: string;
 
     @Column({ type: 'varchar', nullable: false })
-    manufacturer!: string;
+    manufacturer: string;
 
     @CreateDateColumn({ type: 'timestamp', nullable: false })
-    createdAt!: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp', nullable: false })
-    updatedAt!: Date;
+    updatedAt: Date;
 
 
 }

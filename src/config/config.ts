@@ -1,4 +1,5 @@
 import { User } from './../models/bussiness/user.model';
+import { Product } from '../models/bussiness/product.model';
 import { createConnection } from 'typeorm'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -10,7 +11,8 @@ createConnection({
     useUnifiedTopology: true,
     useNewUrlParser: true,
     entities: [
-        User
+        User,
+        Product
     ],
     logging: 'all',
     logger: 'simple-console',

@@ -1,37 +1,54 @@
 import { Role } from './../enum/user.enum';
 import { IUser } from './../interfaces/user.interface';
-import { Column, CreateDateColumn, Entity, ObjectIdColumn, UpdateDateColumn } from "typeorm";
-import { ObjectID } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { ObjectID } from 'typeorm'
+import bcrypt from 'bcrypt';
+import { v4 } from 'uuid';
 
 @Entity('user')
 export class User implements IUser {
     
     @ObjectIdColumn()
-    id!: ObjectID;
+    _id: ObjectID;
+
+    @Column({ type: 'uuid', generated: 'uuid', unique: true })
+    id: string;
 
     @Column({ type: 'varchar', unique: true, nullable: false })
-    email!: string;
+    email: string;
 
     @Column({ type: 'varchar', nullable: false })
-    name!: string;
+    name: string;
 
     @Column({ type: 'varchar', nullable: false, length: 8 })
-    password!: string;
+    password: string;
 
     @Column({ type: 'enum', enum: Role, default: Role.USER, nullable: false })
-    role!: Role;
+    role: Role;
 
     @Column({ type: 'varchar', unique: true, nullable: false })
-    document!: string;
+    document: string;
 
     @Column({ type: 'varchar', length: 11, nullable: false })
-    phone!: string;
+    phone: string;
 
     @CreateDateColumn({ type: 'timestamp', nullable: false })
-    createdAt!: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp', nullable: false })
-    updatedAt!: Date;
+    updatedAt: Date;
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword = () => {
+        this.password = bcrypt.hashSync(this.password, 10)
+        
+    }
+
+    @BeforeInsert()
+    generate = () => {
+        this.id = v4()
+    }
 
 }
 
