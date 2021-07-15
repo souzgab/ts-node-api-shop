@@ -12,6 +12,23 @@ export class ProductRepository {
         .getRepository(Product)
         .save(productToBeSaved)
     }
+
+    findById = async (id: string): Promise<Product | undefined> => {
+        return await getConnection().getRepository(Product).findOne({
+            where: {
+                id: id
+            }
+        })
+    }
+
+    getAll = async (paginateSize: number): Promise<Product[]> => {
+        return await getConnection()
+        .getRepository(Product)
+        .find({
+            skip: paginateSize,
+            take: 10
+        })
+    }
 }
 
 export default new ProductRepository();
