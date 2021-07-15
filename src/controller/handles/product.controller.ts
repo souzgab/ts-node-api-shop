@@ -1,7 +1,7 @@
 import { Product } from './../../models/bussiness/product.model';
 import { Request, Response } from 'express';
 import productService from '../../services/product.service';
-import { validateJwtProduct } from '../../utils/security/jwt-security';
+import { validateJwtAll, validateJwtProduct } from '../../utils/security/jwt-security';
 
 
 export class ProductController {
@@ -31,8 +31,8 @@ export class ProductController {
 
     getAll = async (req: Request, res: Response): Promise<void> => {
         try {
-            if (!req.headers.authorization) throw "Campos inválidos ou inexistentes"
-            await validateJwtProduct(req.headers.authorization);
+            if (!req.headers.authorization) throw "Usuário não autenticado"
+            await validateJwtAll(req.headers.authorization);
             const { size } = req.query
             const result = await productService.getAll(Number(size))
             res.status(201).json(result ? result : { message: "Não existem produtos com o id indicado." }).end()

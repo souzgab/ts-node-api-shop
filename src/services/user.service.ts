@@ -12,6 +12,10 @@ export class UserService {
         return await userRepository.create(user)
     }
 
+    findById = async (id: string): Promise<User | undefined> => {
+        return await userRepository.findById(id)
+    }
+
     getAll = async (paginateSize: number): Promise<UserWithoutPassword[]> => {
         const users = await userRepository.getAll(paginateSize)
         return users.map((user: UserWithoutPassword) => {
