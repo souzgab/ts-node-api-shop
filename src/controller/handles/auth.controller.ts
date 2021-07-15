@@ -11,7 +11,7 @@ export class AuthController {
             const result = await authService.authenticate(credentials)
             res.status(200).json(result).end()
         } catch (error) {
-            res.status(400).json(error).end()
+            res.status(400).json({error}).end()
         }
     }
 }

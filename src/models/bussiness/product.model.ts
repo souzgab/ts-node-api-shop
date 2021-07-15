@@ -1,14 +1,18 @@
 import { CategoryEnum } from './../enum/product.enum';
-import { Column, CreateDateColumn, Entity, ObjectIdColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, ObjectIdColumn, UpdateDateColumn } from "typeorm";
 import { IProduct } from '../interfaces/product.interface'
 import { ObjectID } from 'typeorm';
+import { v4 } from 'uuid';
 
 
 @Entity('product')
 export class Product implements IProduct {
         
     @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+    @Column({ type: 'uuid', generated: 'uuid', unique: true })
+    id: string;
 
     @Column({ type: 'varchar', nullable: false })
     name: string;
@@ -31,5 +35,10 @@ export class Product implements IProduct {
     @UpdateDateColumn({ type: 'timestamp', nullable: false })
     updatedAt: Date;
 
-
+    @BeforeInsert()
+    generate = () => {
+        this.id = v4()
+    }
 }
+
+export default new Product();

@@ -20,7 +20,7 @@ export class User implements IUser {
     @Column({ type: 'varchar', nullable: false })
     name: string;
 
-    @Column({ type: 'varchar', nullable: false, length: 8 })
+    @Column({ select: false , type: 'varchar', nullable: false, length: 8 })
     password: string;
 
     @Column({ type: 'enum', enum: Role, default: Role.USER, nullable: false })
@@ -41,7 +41,7 @@ export class User implements IUser {
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword = () => {
-        this.password = bcrypt.hashSync(this.password, 10)
+        this.password = bcrypt.hashSync(this.password, 8)
         
     }
 

@@ -1,15 +1,15 @@
 import { Product } from './../../models/bussiness/product.model';
 import { Request, Response } from 'express';
 import productService from '../../services/product.service';
-import { validateJwt } from '../../utils/security/jwt-security';
+import { validateJwtProduct } from '../../utils/security/jwt-security';
 
 
 export class ProductController {
 
     create = async (req: Request, res: Response): Promise<void> => {
         try {
-            if (!req.body || !req.headers.authorization) throw new Error("Campos inválidos ou inexistentes");
-            await validateJwt(req.headers.authorization);
+            if (!req.body || !req.headers.authorization) throw "Campos inválidos ou inexistentes"
+            await validateJwtProduct(req.headers.authorization);
             const product = req.body as Product
             const result = await productService.create(product)
             res.status(201).json(result).end()

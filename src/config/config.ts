@@ -16,7 +16,7 @@ createConnection({
     ],
     logging: 'all',
     logger: 'simple-console',
-    synchronize: true
+    synchronize: false
 }).then((conn) => {
     console.log(`is Successfully connected to DB? => ${conn.isConnected}`)
 }).catch(e => {throw new Error(e)})

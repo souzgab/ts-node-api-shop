@@ -10,7 +10,7 @@ export class ProductService {
             if (!productValidator.productValidator(product)) throw new Error("Erro ao criar Produto, preencha todos os campos");
             return await productRepository.create(product)
         } catch (error) {
-            throw new Error(`Error: Create Product API, describe: ${error}`);
+            throw `Error: Create Product API, describe: ${error}`
         }
     }
 }

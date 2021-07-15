@@ -9,11 +9,11 @@ export class AuthService {
         try {
            const user = await userRepository.findOne(credentials.email) 
 
-           if(!user || user === undefined) throw new Error("Usuário não encontrado!")
+           if(!user || user === undefined) throw "Usuário não encontrado!"
 
            const isValidPassword = await bcrypt.compare(credentials.password, user.password)
 
-           if(!isValidPassword) throw new Error("Senha difere da senha já cadastrada")
+           if(!isValidPassword) throw "Senha difere da senha já cadastrada"
 
            user.updatedAt = new Date();
            await userRepository.update(user);
@@ -21,7 +21,7 @@ export class AuthService {
            return { user, token: generateJwt({id: user.id}) }
 
         } catch (error) {
-            throw new Error(`Error: ${error}`)
+            throw error
         }
     }
 }
