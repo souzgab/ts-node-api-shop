@@ -39,10 +39,10 @@ export class User implements IUser {
     updatedAt: Date;
 
     @BeforeInsert()
-    @BeforeUpdate()
-    hashPassword = () => {
-        this.password = bcrypt.hashSync(this.password, 8)
-        
+    hashPassword = async () => {
+        if (!!this.password) {
+            this.password = await bcrypt.hash(this.password, 10);
+        }
     }
 
     @BeforeInsert()

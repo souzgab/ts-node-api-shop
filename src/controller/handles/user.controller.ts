@@ -1,3 +1,4 @@
+import { validateJwtAll } from './../../utils/security/jwt-security';
 import { Request, Response } from 'express'
 import { User } from '../../models/bussiness/user.model';
 import userService from '../../services/user.service';
@@ -35,6 +36,16 @@ export class UserController {
             return res.status(200).json(await userService.getAll(Number(size))).end()
         } catch (error) {
             res.status(500).json({error: error, message: 'Não foi possivel cadastrar usuário'}).end()
+        }
+    }
+
+    update = async (req: Request, res: Response): Promise<void> => {
+        try {
+            if (!req.headers.authorization) throw "Usuário não pode ser atualizado"
+            await validateJwtAll(req.headers.authorization);
+            res.status(200).json(await userService.update(req.body as User)).end()
+        } catch (error) {
+            res.status(500).json({error: error, message: 'Não foi possivel atualizar o usuário'}).end()
         }
     }
 

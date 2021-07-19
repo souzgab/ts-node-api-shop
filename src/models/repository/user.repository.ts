@@ -8,7 +8,7 @@ export class UserRepository {
         if(await getConnection().getRepository(User).findOne(user)) throw "Usuário ja existe!"
 
         const userToBeSaved = getConnection().getRepository(User).create(user);
-
+        
         return await getConnection()
         .getRepository(User)
         .save(userToBeSaved)

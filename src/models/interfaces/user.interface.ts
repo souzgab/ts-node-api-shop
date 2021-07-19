@@ -16,6 +16,7 @@ export interface Credentials {
 }
 
 export interface UserWithoutPassword {
+    updatedAt: Date;
     id: string;
     role: Role;
     email: string;
@@ -23,4 +24,5 @@ export interface UserWithoutPassword {
     phone: string;
     document: string;
     password?: string;
+    token?: string;
 }

@@ -19,4 +19,4 @@ createConnection({
     synchronize: false
 }).then((conn) => {
     console.log(`is Successfully connected to DB? => ${conn.isConnected}`)
-}).catch(e => {throw new Error(e)})
+}).catch(e => { throw e })

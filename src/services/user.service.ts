@@ -24,6 +24,10 @@ export class UserService {
         })
     }
 
+    update = async (user: User): Promise<User | undefined> => {
+        return await userRepository.update(user)
+    }
+
 }
 
 export default new UserService()
