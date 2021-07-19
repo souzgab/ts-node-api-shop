@@ -22,7 +22,7 @@ export class AuthService {
            delete user.password  
            return {
                ...user,
-               token: generateJwt({id: user.id})
+               token: generateJwt({user: user})
            }
 
         } catch (error) {
